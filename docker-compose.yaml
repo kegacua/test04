@@ -1,0 +1,42 @@
+# version: '3.7'
+
+services:
+  mongodb:
+    container_name: mongodb
+    image: mongo:latest
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - custom_network
+    # depends_on:
+    #   - serviceName
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root  # Mật khẩu cho user 'root'
+      MYSQL_DATABASE: testdb  # Tạo sẵn database 'testdb'
+      # MYSQL_USER: testuser  # Tạo user 'testuser'
+      # MYSQL_PASSWORD: testpass  # Mật khẩu cho user 'testuser'
+    volumes:
+      - mysql_data:/var/lib/mysql  # Gắn volume để lưu dữ liệu MySQL, mysql-data laf tren may tram, con /var/lib/mysql la tren volumes
+    networks:
+      - custom_network
+
+volumes:
+  mongo_data:  # Volume lưu trữ MongoDB
+  mysql_data:  # Volume lưu trữ MySQL
+
+networks:
+  custom_network:  # Tên mạng do bạn tự đặt
+    driver: bridge  # Sử dụng driver 'bridge'
+
