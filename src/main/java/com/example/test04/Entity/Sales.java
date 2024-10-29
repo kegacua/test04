@@ -29,14 +29,13 @@ public class Sales {
     // @Id
     // private LocalDate saleDate;
     private Long doanh_so;
-    void abc(){
-        ;
-    }
 
     @ManyToOne
     @MapsId("sellerId")
     @JoinColumn(name = "seller_id")
     //@JoinColumn(name = "seller_id", insertable = false, updatable = false)
     private Seller seller;
+
+
 
 }
